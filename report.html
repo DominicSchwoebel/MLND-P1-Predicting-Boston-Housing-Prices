@@ -18955,29 +18955,6 @@ REREj0mCFhEREdFjkqBFRERE9JgkaBERERE95n81cH4q8nYquwAAAABJRU5ErkJggg==
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[145]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">sklearn.learning_curve</span> <span class="kn">as</span> <span class="nn">curves</span>
-
-<span class="c1"># Create 10 cross-validation sets for training and testing.</span>
-<span class="c1"># I had to make sure here, that I use the same parameter as in visuals.py to get the same values.</span>
-<span class="n">cv</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">n_iter</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
-
-<span class="n">max_depth</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
-
-<span class="c1"># Calculate the testing scores for analysis.</span>
-<span class="n">train_scores</span><span class="p">,</span> <span class="n">test_scores</span> <span class="o">=</span> <span class="n">curves</span><span class="o">.</span><span class="n">validation_curve</span><span class="p">(</span><span class="n">DecisionTreeRegressor</span><span class="p">(),</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> \
-    <span class="n">param_name</span> <span class="o">=</span> <span class="s2">&quot;max_depth&quot;</span><span class="p">,</span> <span class="n">param_range</span> <span class="o">=</span> <span class="n">max_depth</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="n">cv</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="s1">&#39;r2&#39;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -18988,40 +18965,14 @@ REREj0mCFhEREdFjkqBFRERE9JgkaBERERE95n81cH4q8nYquwAAAABJRU5ErkJggg==
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[146]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="s2">&quot;Mean validation score:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">test_scores</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Mean validation score: 0.413184291989
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>At the maximum depth of 1, the mean validation score is lesser scored than possible (1.0).
-This is caused due to a high bias - an increase of the maximum depth allows to use more (better) assumptions, which will increase the validation score. The light green area around the validation score is the variance. It is the lowest for all depths in this graph.</p>
+<p>At the maximum depth of 1, the mean validation score and the mean training score are lesser scored (around 0.4) than possible (1.0).
+This is caused due to a high bias: An increase of the maximum depth would allow using more (better) assumptions, which could increase both scores.</p>
+<p>The variance is low:  It is the lowest for all depths in this graph. Udacity shows in their "Bias Variance Dilemma Quiz - Intro to Machine Learning" (see: <a href="https://www.youtube.com/watch?v=OurfO1ZR2GU">https://www.youtube.com/watch?v=OurfO1ZR2GU</a>) that close error rates on training and validation scores indicate a low variance. In the graph above, the light green area around the validation score visualizes the variance.</p>
 
 </div>
 </div>
@@ -19036,42 +18987,14 @@ This is caused due to a high bias - an increase of the maximum depth allows to u
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[147]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#print test_scores[1]</span>
-<span class="k">print</span> <span class="s2">&quot;Mean validation score:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">test_scores</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Mean validation score: 0.661798291766
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The model suffers from high variance at a depth of 9 and 10. The light green area goes from about 0.58 to 0.78.
-Above the depth of 4, the model slightly starts to overfit, which can be seen in a slightly decreasing validation score.
-That means the bias increases from that point a bit.</p>
+<p>The model suffers from high variance at a depth of 10. This can be justified by a very high distance between the training and the validation score in the graph.
+High variance can also be identified by introduced scatter on the validation score, which is visualized by a large light green area around the mean validation score.</p>
+<p>Above the depth of 4, the model slightly starts to overfit, which can be seen in a decreasing validation score. The main reason for overfitting in this case is that the model is bound to too many variables, then. Additionally introduced variables lead to unwanted noise.</p>
 
 </div>
 </div>
